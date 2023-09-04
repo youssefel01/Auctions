@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<div>
+    {% if notifications %}
+    <ul>
+        {% for notification in notifications %}
+            <li>
+                <small> {{ notification.created|timesince }} ago</small>
+                
+                <p>Congratulations! <strong>@{{notification.user}}</strong> 
+                    You've won the Auction for <a href="{% url 'listingPage' notification.listing.id%}">{{notification.listing}}</a>, Click to see the Auction."</p>
+                <hr>
+            </li>
+
+        {% endfor %}
+    </ul>
+    {% else %}
+    <h2>No Notifications</h2>
+    {% endif %}
+</div>
+
+{% endblock %}

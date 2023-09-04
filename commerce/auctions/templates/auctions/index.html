@@ -1,0 +1,18 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<div class="home-container">
+
+    <div class="Category-container">
+        {% include 'auctions/category.html' %}
+    </div>
+
+    <div class="listings-container">
+        <h2 class="title">Active Listings</h2>
+        <hr>
+        {% include 'auctions/listings.html' %}
+    </div>
+
+<div>
+{% endblock %}

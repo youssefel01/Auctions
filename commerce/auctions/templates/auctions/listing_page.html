@@ -1,0 +1,132 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="listing-container">
+    <div class="listing-content">
+        <!-- item details -->
+        <div class="item-header">
+                <div class="item-imageTitel">
+                    <div class="item-img">
+                        {% if listing_page.imageUrl %} 
+                        <img src="{{ listing_page.imageUrl }}" alt="{{listing_page.title}}">
+                        {% else %}
+                        <img src="https://assets.fishersci.com/TFS-Assets/CCG/product-images/default.jpg-650.jpg" alt="owner didn't add an image to the product">
+                        {% endif %}
+                    </div>
+                    <div class="item-titleBP">
+                        <div class="title-container">
+                            <h2>{{listing_page.title}}</h2>
+                            <small>Posted on:{{ listing_page.created }}</small>
+                        </div>
+                        {% if last_bid %}
+                        <div class="bid-page">
+                            <strong>Last Bid: ${{last_bid.amount}}</strong>
+                        </div>
+                        {% else %}
+                        <div class="price-page">
+                            <strong>Primary price: ${{listing_page.primary_price}}</strong>
+                        </div>
+                        {% endif %}
+                    </div>
+            </div>
+            <!-- Close/Activate Auction & Add/Remove from watchlist -->
+            <div class="listing-page-form">
+            {% if request.user.is_authenticated  %}
+                {% if request.user == listing_page.owner %}
+                    {% if listing_page.is_active %}
+                    <form action="{% url 'AuctionControl' listing_page.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="submit" type="submit">Close Auction</button>
+                    </form>
+                    {% else %}
+                    <form action="{% url 'AuctionControl' listing_page.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="submit" type="submit">Activate Auction</button>
+                    </form>
+                    {% endif %}
+                {% else %}
+                    {% if is_in_watchlist %}
+                    <form action="{% url 'removeWatchlist' listing_page.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="submit" type="submit">Remove from Watchlist</button>
+                    </form>
+                    {% else %}
+                    <form action="{% url 'addWatchlist' listing_page.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="submit" type="submit">Add to Watchlist</button>
+                    </form>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+            </div>
+            <!-- place a bid -->
+            {% if request.user.is_authenticated  %}
+                {% if request.user == listing_page.owner %}
+                <div class="boxMessage">
+                    <p>You are the owner of this auction</p>
+                </div>
+                {% else %}
+                <div class="listing-page-form">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input class="submit" type="submit" value="Place Bid">
+                    </form>
+                </div>
+                {% endif %}
+            {% else %}
+            <div class="boxMessage">
+                <p><a href="{% url 'login' %}">Log in</a> so you can place your bid</p>
+            </div>
+            {% endif %}
+
+        </div>
+        <!-- Description -->
+        <div>
+            <strong>Description</strong>
+            <p>{{listing_page.description}}</p>
+        </div>
+        <!-- comments -->
+        <div>
+            <h2>Comments</h2>
+            <hr>
+            {% if request.user.is_authenticated %}
+            <div class="comment">
+                <form action="{% url 'listingComment' listing_page.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="body" placeholder="Write your comment here..">
+                </form>
+            </div>
+            {% endif %}
+            {% for comment in comments %}
+            <div>
+                <strong>@{{comment.creater}}</strong>
+                <small>{{comment.created|timesince}} ago</small>
+                <p>{{comment.body}}</p>
+                <hr>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- last bidders -->
+    <div class="Bidders">
+        <h2>Bidders</h2>
+        <hr>
+        
+        {% if last_bid %}
+        <div class="item-bidder">
+            {% for Bidder in Bidders %}
+            <p><strong>@{{Bidder.bidder}}</strong><small> |  {{Bidder.created|timesince}} ago</small></p>
+            <strong class="bid">Bid: ${{Bidder.amount}}</strong>
+            <hr>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div>
+            <p> No Bidders in this item </p>
+        </div>
+        {% endif %}
+        
+    </div>
+</div>
+{% endblock %}

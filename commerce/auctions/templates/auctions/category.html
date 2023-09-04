@@ -1,0 +1,10 @@
+<h2>Category</h2>
+<hr>
+    <div class="category">
+        <a href="{% url 'index' %}"><h5>All</h5></a>
+    </div>
+{% for Categorie in Categories %}
+    <div class="category">
+        <a href="{% url 'index' %}?q={{Categorie.name}}"><h5>{{Categorie.name}}</h5></a>
+    </div>
+{% endfor %}

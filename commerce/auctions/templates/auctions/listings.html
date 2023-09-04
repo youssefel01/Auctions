@@ -1,0 +1,25 @@
+
+<ul>
+    {% for listing in listings %}
+        <li>
+            <a href="{% url 'listingPage' listing.id%}">
+            <div class="Image-container">
+            {% if listing.imageUrl %} 
+            <img src="{{ listing.imageUrl }}" alt="{{ listing.title }}">
+            {% else %}
+            <img src="https://assets.fishersci.com/TFS-Assets/CCG/product-images/default.jpg-650.jpg" alt="owner didn't add an image to the product">
+            {% endif %}
+            </div>
+            <h3>{{ listing.title }}</h3>
+            </a>
+            <small>Owner: @{{ listing.owner }}</small>
+            <p>{{ listing.description|slice:":100" }}...</p>
+            {% if listing.max_bid %}
+            <p class="last-bid">Last Bid: ${{ listing.max_bid }}</p>
+            {% else %}
+            <p class="Primary-price">Primary Price: ${{ listing.primary_price }}</p>
+            {% endif %}
+            <small>Posted since: {{listing.updated|timesince}}</small>
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,16 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="profile-container">
+    <div class="userinfo">
+        <h1 class="title">Welcome @{{request.user}}</h1>
+    </div>
+    <div class="listings-container">
+        <h2 class="title">Your Listings</h2>
+        <hr>
+        
+        {% include 'auctions/listings.html' %}
+    </div>
+</div>
+
+{% endblock %}
