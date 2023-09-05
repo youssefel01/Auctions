@@ -43,7 +43,7 @@ To run this project locally, follow these steps:
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-username/Auctions.git
+   git clone https://github.com/youssefel01/Auctions.git
 
 2. Navigate to the project directory:
 
@@ -80,4 +80,30 @@ To run this project locally, follow these steps:
    python manage.py runserver
 
 9. Open your web browser and go to http://127.0.0.1:8000 to access the application.
+
+You have now successfully set up the Django Auctions Website locally. Enjoy exploring and customizing your auction platform!
+
+## Usage
+
+- To create a new listing, log in and click on "Create Listing" in the navigation bar. Fill in the required details, and your item will be up for auction.
+- To place a bid on an item, navigate to the item's detail page and use the bidding form.
+- You can also add items to your watchlist by clicking the "Add to Watchlist" button on an item's detail page.
+- Monitor your active listings and bidding activity in your user profile.
+
+## Technologies
+
+- Python
+- Django
+- SQLite
+- HTML/CSS
+- Bootstrap
+
+## Contributing
+
+Contributions are welcome! If you have any suggestions or find issues, please feel free to open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
    
