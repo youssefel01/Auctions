@@ -35,6 +35,7 @@ The Django Auctions Website was created during the process of learning web devel
 ## Demo
 
 For a quick visual overview of the key features, watch our 5-minute demo video [here](https://youtu.be/xgyz1m0VApU).
+You can test the website live at [https://youssefel0.pythonanywhere.com/](https://youssefel0.pythonanywhere.com/). Please note that this is a testing environment, and the website may not be available after a certain date.
 
 ## Installation
 
